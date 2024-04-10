@@ -1,0 +1,78 @@
+.body, html {
+    margin: 0;
+    padding: 0;
+}
+
+.diseases {
+    width: 100vw; 
+    height: 100vh; 
+    background-color: white;
+    backdrop-filter: blur(50px);
+    color: grey;
+    padding: 50px; 
+    box-sizing: border-box; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0;
+    overflow: hidden;
+}
+
+
+.diseases form label {
+    font-size: 17px;
+    color: black;
+}
+
+.form-group{
+    size: 300px;
+    padding-bottom: 0;
+    margin-left: -30px;
+}
+
+h2{
+    font-size: 30px;
+    margin-bottom: 20px;
+    color: black;
+    font-weight: 400;
+    font: optional;
+}
+
+.diseases .form-group label,
+.diseases .form-group input,
+.diseases .form-group select,
+.diseases .form-group textarea {
+    text-align: left; 
+    margin-bottom: 5px; /* Reduced margin */
+    color: rgb(68, 66, 66);
+    font-size: 20px;
+}
+
+.form-group .selectsymptoms{
+    /* background-color: #F8F8FF;
+    border: 1px solid lightgray;
+    padding: 5px; */
+
+    width: 300px;
+    height: 400px;
+}
+
+.diseases .form-group input[type="checkbox"] {
+    margin-right: 10px;
+    cursor: pointer; /* Add pointer cursor on hover */
+}
+
+/* Highlight checkbox when cursor is upon it */
+.diseases .form-group input[type="checkbox"]:hover {
+    background-color: lightgrey;
+}
+
+/* Adjust checkbox label alignment */
+.diseases .form-group label {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+h3{
+    font-size: 20px;
+}

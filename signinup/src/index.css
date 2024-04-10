@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+/* Tailwind CSS */
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
+
+/* Combined Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  min-height: 100vh;
+  background-color: ghostwhite;
+  /* Additional body styles from login/signup index.css */
+  margin-left: 70px;
+  /* box-shadow, border-width, background properties, etc. */
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 100;
+  margin: 0;
+}
+
+
+
+.form-container {
+  flex: 1;
+  padding: 20px;
+  max-width: 50%;
+}
+
+.image-container {
+  display: flex;
+  align-items: center;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+.image {
+  max-width: 700px;
+  height: auto;
+}
+
+/* Additional styles if necessary */
+.login-image {
+  /* Add specific styles for the login image if needed */
+}
+
+.signup-image {
+  /* Add specific styles for the signup image if needed */
+}
+
