@@ -116,6 +116,7 @@ const LoginForm = () => {
   }
 
   return (
+    <div className="login">
     <div className='wrapper'>
       <form onSubmit={handleSubmit}>
         <h1>Login</h1>
@@ -132,7 +133,9 @@ const LoginForm = () => {
 
         <div className="remember-forget">
           <label><input type='checkbox' /> Remember Me</label>
-          <Link to='#'>Forget Password</Link> {/* Use Link from react-router-dom */}
+        </div>
+        <div className="forget-password">
+        <Link to='#' >Forget Password</Link> {/* Use Link from react-router-dom */}
         </div>
 
         <button type='submit' className='b1'>Login</button>
@@ -141,6 +144,9 @@ const LoginForm = () => {
           <p>New Registration? <Link to="/register">Register Here</Link></p>
         </div>
       </form>
+      
+    </div>
+    <img src="image.svg" className="" width="500" height="600" alt="Diseases" />
     </div>
   )
 }

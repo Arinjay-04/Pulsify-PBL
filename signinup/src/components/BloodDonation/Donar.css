@@ -1,0 +1,50 @@
+.donarlist {
+    background-image: url("heart-test.jpg");
+    width: 1400px;
+    height: 100vh;
+    margin-left: 10px;
+    border-radius: 10px;
+    margin-top: -50px;
+    margin-bottom: -50px;
+    padding: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.donarlist h2 {
+    text-align: center;
+    color: azure;
+    font-size: 50px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    margin: 20px;
+    margin-bottom: 0;
+    font-weight: bold;
+    margin-bottom: 100px;
+}
+
+.list {
+    background-color: white;
+    margin: 30px;
+    padding: 20px;
+    width: 400px;
+}
+
+.list-group {
+    display: flex;
+    flex-direction: row; /* Items will be laid out horizontally initially */
+    justify-content: end; /* Align items to the end of the flex container */
+    flex-wrap: wrap; /* Allow items to wrap to the next line */
+}
+
+.list-group-item {
+    margin: 5px; /* Add margin between items for spacing */
+}
+
+.imagedonar {
+    max-width: 100%;
+    height: auto;
+    margin-right: 20px; /* Add margin to the right for spacing */
+    align-self: flex-start; /* Align the image to the start (left) of its flex container */
+}

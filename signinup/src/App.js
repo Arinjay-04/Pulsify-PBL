@@ -73,13 +73,15 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import LoginForm from './components/Loginform/LoginForm.jsx';
 import SignupForm from './components/SignUpForm/signUpForm.jsx';
-import loginImage from './components/Assets/image.svg'; // Import login image
-import signupImage from './components/Assets/image1.svg'; // Import signup image
+// import loginImage from './components/Assets/image.svg'; // Import login image
+// import signupImage from './components/Assets/image1.svg'; // Import signup image
 import Homepage from './components/Homepage/Homepage.jsx';
 import './App.css'; // Import your CSS file for styling
 import './index.css';
 import './components/Homepage/Homepage.css'
 import Diseases from './components/Diseases/Diseases.jsx';
+import Donation1 from './components/BloodDonation/Donation1.jsx'
+import Donar from './components/BloodDonation/Donar.jsx'
 
 function App() {
   return (
@@ -93,6 +95,12 @@ function App() {
    <AppContent />
    <Routes>
       <Route exact path='/diseases' element={<Diseases/>}/>
+   </Routes>
+   <Routes>
+      <Route exact path='/donation' element={<Donation1/>}/>
+   </Routes>
+   <Routes>
+      <Route exact path='/donar' element={<Donar/>}/>
    </Routes>
     </Router>
   );
@@ -109,15 +117,15 @@ function AppContent() {
           <Route path="/register" element={<SignupForm />} />
         </Routes>
       </div>
-      <div className="image-container">
-        {/* Conditional rendering of images based on the current route */}
+      {/* <div className="image-container">
+        Conditional rendering of images based on the current route
         {location.pathname === '/login' && (
           <img src={loginImage} alt="Login Image" className="image" />
         )}
         {location.pathname === '/register' && (
           <img src={signupImage} alt="Signup Image" className="image" />
         )}
-      </div>
+      </div> */}
     </div>
 
   );

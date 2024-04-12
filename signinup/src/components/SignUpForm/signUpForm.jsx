@@ -200,8 +200,10 @@ const SignupForm = () => {
   const [firstname, setFName] = useState('');
   const [lastname, setLName] = useState('');
   const [Number, setNumber] = useState('');
+  const [age, setAge] = useState('');
   const [email, setemail] = useState('');
   const [dob, setdob] = useState(new Date());
+  const [bloodGroup, setBloodGroup] = useState('');
   const [Address, setAddress] = useState('');
   const [Code, setCode] = useState('');
   const [password, setpassword] = useState('');
@@ -240,6 +242,10 @@ const SignupForm = () => {
     setNumber(e.target.value);
   }
 
+  const handleAge = (e) => {
+    setAge(e.target.value);
+  }
+
   const handleEmailChange = (e) => {
     setemail(e.target.value);
   }
@@ -251,6 +257,9 @@ const SignupForm = () => {
   const handleCodeChange = (e) => {
     setCode(e.target.value);
   }
+  const handleBloodGroupChange = (e) => {
+    setBloodGroup(e.target.value);
+  };
 
 
   const handlePasswordChange = (e) => {
@@ -290,6 +299,7 @@ const SignupForm = () => {
       firstname,
       lastname,
       Number,
+      age,
       email,
       dob,
       Address,
@@ -316,6 +326,7 @@ const SignupForm = () => {
         firstname,
         lastname,
         Number,
+        age,
         email,
         dob,
         Address,
@@ -340,6 +351,7 @@ const SignupForm = () => {
   
 
   return (
+    <div className="signup">
     <div className='wrapper'>
     <form onSubmit={handleSubmit}>
       <h1>Signup</h1>
@@ -368,41 +380,66 @@ const SignupForm = () => {
 
         <div className='Input-Box'>
           <input type='tel' placeholder='Mobile Number ' value={Number} onChange={handleMobileChange} required />
-          <FaMobileAlt className='icon' />
-          <input type='email' placeholder='Email' value={email} onChange={handleEmailChange} required />
+          {/* <FaMobileAlt className='icon' /> */}
+          <input type='age' placeholder='Age' value={age} onChange={handleAge} required />
           <div>
-          <FaEnvelope className='icon' />
+          {/* <FaEnvelope className='icon' /> */}
           </div>
          </div>
-        <div className='Input-Box'>
-          <DatePicker
-            selected={dob}
-            onChange={date => setdob(date)}
-            placeholderText='Date of Birth'
-            dateFormat='dd/MM/yyyy'
-            showYearDropdown
-            scrollableYearDropdown
-            yearDropdownItemNumber={70}
-            popperPlacement="bottom"
-            // minDate={minDate}
-          />
-          <FaUser className='icon' />
+         <div className='Input-Box'>
+          <input type='email' placeholder='Email' value={email} onChange={handleEmailChange} required />
+          {/* <FaAddressCard className='icon' /> */}
         </div>
+        {/* <div className='Input-Container'> */}
+  <div className='Input-Box'>
+    <DatePicker className="Date"
+      selected={dob}
+      onChange={date => setdob(date)}
+      placeholderText='Date of Birth'
+      dateFormat='dd/MM/yyyy'
+      showYearDropdown
+      scrollableYearDropdown
+      yearDropdownItemNumber={70}
+      popperPlacement="bottom"
+      // minDate={minDate}
+    />
+
+<select className="dropdown" value={bloodGroup} onChange={handleBloodGroupChange}>
+        <option value="">Select Blood Group</option>
+        <option value="A+">A+</option>
+        <option value="A-">A-</option>
+        <option value="B+">B+</option>
+        <option value="B-">B-</option>
+        <option value="AB+">AB+</option>
+        <option value="AB-">AB-</option>
+        <option value="O+">O+</option>
+        <option value="O-">O-</option>
+      </select>
+    
+  </div>
+  {/* <div className="Input-Box">
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Dropdown
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+        <button class="dropdown-item" type="button">Action</button>
+        <button class="dropdown-item" type="button">Another action</button>
+        <button class="dropdown-item" type="button">Something else here</button>
+      </div>
+    </div>
+  </div>
+</div> */}
+
 
         <div className='Input-Box'>
           <input type='text' placeholder='Residents Address' value={Address} onChange={handleAddressChange} required />
-          <FaAddressCard className='icon' />
+          {/* <FaAddressCard className='icon' /> */}
         </div>
-
-        <div className='Input-Box'>
-          <input type='text' placeholder='Residents Address Pincode' value={Code} onChange={handleCodeChange} required />
-          <MdOutlineLocationOn className='icon' />
-        </div>
-
         <div className='Input-Box'>
           <input type='password' placeholder='Password' value={password} onChange={handlePasswordChange} required />
           <input type='password' placeholder='Confirm-Password' value={cpassword} onChange={handleCPasswordChange} required />
-          <FaLock className='icon' />
+          {/* <FaLock className='icon' /> */}
         </div>
        
         {Object.keys(errors).map((key) => (
@@ -425,6 +462,9 @@ const SignupForm = () => {
         <p>Already have an account? <Link to="/login">Login Here</Link></p>
       </div>
     </form>
+   
+  </div>
+  <img src="image1.svg" className="" width="500" height="600" alt="Diseases" />
   </div>
   );
 
