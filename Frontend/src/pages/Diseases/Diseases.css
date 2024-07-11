@@ -1,0 +1,55 @@
+.diseases {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .form-group {
+    max-width: 600px;
+    width: 100%;
+    margin-right: 20px;
+  }
+  
+  .form-group h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .form-group input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 16px;
+  }
+  
+  hr {
+    margin: 20px 0;
+  }
+  
+  .select-symptoms label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+  
+  .btn-submit {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+  }
+  
+  .btn-submit:hover {
+    background-color: #45a049;
+  }
+  
+  .disease-image {
+    max-width: 500px;
+    height: auto;
+    width: 100%;
+  }
+  

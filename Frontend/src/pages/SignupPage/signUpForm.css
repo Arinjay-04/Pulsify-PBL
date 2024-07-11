@@ -1,0 +1,157 @@
+.wrapper {
+    width: 350px;
+    height: 580px;
+    background-color: transparent;
+    border: 20px solid rgba(255, 255, 255, .2);
+    backdrop-filter: blur(50px);
+    color: grey;
+    margin: 0 auto; /*Center the wrapper horizontally*/
+    box-sizing: border-box; /* Include padding and border in the box sizing */
+    display: flex; /* Use flexbox */
+    justify-content: flex-start;
+    border-radius: 10px;
+    align-items: center;
+    margin-left: 10px;
+  }
+  
+  .wrapper h1 {
+    font-size: 40px;
+    color: black;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .wrapper .Input-Box {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 20px 0;
+    display: flex;
+  }
+  
+  .Input-Box input {
+    width: calc(100% - 20px);
+    height: 100%;
+    background-color: #F8F8FF;
+    font-size: 16px;
+    color: rgb(15, 14, 14);
+    box-shadow: rgb(6, 6, 6) 20px;
+    padding: 15px;
+    margin: 10px 10px;
+    box-sizing: border-box;
+    border: 1.5px solid lightgray; /* Adjusted border */
+    border-radius: 20px;
+  }
+  
+  .Input-Box input::placeholder {
+    color: grey;
+  }
+  
+  .Input-Box .icon {
+    position: absolute;
+    right: 40px;
+    top: 25px;
+    font-size: 20px;
+  }
+  
+  .remember-forget {
+    padding: 0 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 17px;
+  }
+  
+  .remember-forget a {
+    color: white;
+  }
+  
+  .remember-forget a:hover {
+    text-decoration: underline;
+  }
+  
+  .wrapper .b1 {
+    width: 90%;
+    height: 50px;
+    margin-top: 10px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 20px;
+    font-size: 20px;
+    color: white;
+    background-color: #1E90FF;
+  }
+  
+  .wrapper .registration-link {
+    text-align: center;
+    margin-top: 10px;
+    color: black;
+  }
+  
+  .wrapper .registration-link a {
+    color: #00008B;
+    margin-left: 10px;
+  }
+  
+  .Input-Box select:focus {
+    border-color: #007bff; /* Highlight color when focused */
+    outline: none; /* Remove default focus outline */
+  }
+  
+  .image1 {
+    margin-right: 100px;
+  }
+  
+  .signup {
+    width: 95vw;
+    height: 83%;
+    background-color: white;
+    backdrop-filter: blur(50px);
+    color: grey;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-left: 10px;
+    margin-right: -10px;
+    overflow: hidden;
+  }
+  
+  .dropdown {
+    width: calc(100% - 20px);
+    height: 100%;
+    background-color: #F8F8FF;
+    font-size: 16px;
+    color: rgb(14, 13, 13);
+    box-shadow: rgb(6, 6, 6) 20px;
+    margin: 10px 10px;
+    box-sizing: border-box;
+    border: 1.5px solid lightgray; /* Adjusted border */
+    border-radius: 20px;
+    padding-left: 10px;
+  }
+  
+  form {
+    width: 700px;
+  }
+  
+  .input-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .input-wrapper input {
+    margin-bottom: 5px; /* Space between input and error message */
+  }
+  
+  .error-message {
+    margin-top: -5px; /* Adjust to fit closely below the input box */
+    margin-left: 20px;
+    color: red;
+    font-size: 13px;
+  }
+  
