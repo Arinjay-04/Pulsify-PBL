@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const pg = require('pg');
+const hospital = require('./hospitals1.json');
 const bodyParser = require('body-parser');
 const path = require('path'); 
 const bcrypt = require("bcrypt");
@@ -24,7 +25,14 @@ app.use(express.json());
 app.use(cors()); 
 db.connect();
 const saltRounds = 10;
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:5173'); 
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    next();
+  });
 
+  
 app.post('/login', async (req, res) => {
     const { email , password } = req.body;
 
@@ -93,9 +101,25 @@ app.post('/signup', async (req, res) => {
     }
 });
 
-app.listen(3001, () => {
-    console.log("The port is running");
+app.get('/hospitals', async(req, res) => {
+    try{
+        const { state, city } = req.query; 
+        const result = await  db.query("SELECT NAME, ADDRESS, TELEPHONE, TYPE, STATUS FROM hospitals WHERE STATE = $1 and CITY = $2",[state, city]);
+        const results = result.rows.map(hosp => ({
+            name: hosp.name,
+            address: hosp.address,
+            telephone: hosp.telephone,
+            type: hosp.type,
+            status: hosp.status
+        }));
+        res.json(results);
+    }catch(err){
+        console.log("error: ", err);
+    }
 });
+
+
+
 
 
 app.post('/diseases', (req, res) => {
@@ -104,6 +128,33 @@ app.post('/diseases', (req, res) => {
     console.log(ans1);
     console.log(ans2);
     
-    // Assuming you want to send a success message back to the client
+    
     res.status(200).send('Data received successfully.');
 });
+
+app.listen(3001, () => {
+    console.log("The port is running");
+});
+
+                                             // INSERTING DATA IN DATABASE
+
+// app.post('/hospitalinsert', (req, res) => {
+//     try {
+//         for (let i = 0; i < hospital.length; i++) {
+//             const { NAME, ADDRESS, CITY, STATE, ZIP, TELEPHONE, TYPE, STATUS, LATITUDE, LONGITUDE } = hospital[i];
+//             db.query('INSERT INTO hospitals (NAME, ADDRESS, CITY, STATE, ZIP, TELEPHONE, TYPE, STATUS, LATITUDE, LONGITUDE) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)', 
+//                 [NAME, ADDRESS, CITY, STATE, ZIP, TELEPHONE, TYPE, STATUS, LATITUDE, LONGITUDE],
+//                 (error, results) => {
+//                     if (error) {
+//                         console.error("Error inserting hospital:", error);
+//                     } else {
+//                         console.log("Hospital inserted successfully:", results);
+//                     }
+//                 });
+//         }
+//         res.status(200).send("Data inserted successfully");
+//     } catch (err) {
+//         console.error("Error:", err);
+//         res.status(500).send("Error inserting data");
+//     }
+// });

@@ -1,0 +1,27 @@
+.loader-container {
+    font-size: 80px;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+     align-items: center; /*Center vertically */ 
+    height: 100vh; /* Adjust height as needed */
+    color: #2696f2;
+    margin-left: 50%;
+  }
+
+
+
+.loader {
+  font-size: 3rem; /* Adjust size as needed */
+}
+
+/* Example of using Font Awesome spinner */
+.loader .fa-spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+  

@@ -1,0 +1,54 @@
+.landing-page {
+    display: flex;
+    height: 100vh; /* Adjust as needed */
+  }
+  
+  .blue-side {
+    flex: 1;
+    background-color: #53a2f6; /* Blue color */
+  }
+  
+  .white-side {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff; /* White color */
+    padding: 20px;
+    color: #333;
+  }
+  
+  .white-side h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .white-side p {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .white-side button {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    background-color: #2696f2;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 10px;
+  }
+  
+  .white-side button:hover {
+    background-color: #3690f1; /* Darker blue on hover */
+  }
+
+  .image{
+    margin-top: 20px;
+  }
+
+  .pulsify{
+    color: #509ff4;
+  }
+  

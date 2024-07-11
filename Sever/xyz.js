@@ -8,6 +8,7 @@ app.use((req, res, next) => {
     next();
   });
 
+console.log(Object.keys(hospital[0]))
 // const ress = hospital.map(hosp => ({
 //     STATE: hosp.STATE,
 //     CITY: hosp.CITY

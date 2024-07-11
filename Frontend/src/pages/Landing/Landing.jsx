@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Footer, Hero, Navbar } from '../../components';
-import { facilities } from '../../constants';
+import './Landing.css'; // Your CSS styles here
+import { Link } from 'react-router-dom';
 import Loading from '../Loading/Loading'; // Import your Loading component
 
-const Homepage = () => {
+const LandingPage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -16,25 +16,23 @@ const Homepage = () => {
   }, []);
 
   return (
-    <div className='bg-slate-100 h-auto'>
+    <div className="landing-page">
       {loading ? (
         <Loading />
       ) : (
         <>
-          <Navbar />
-          <Hero />
-          <div className='flex justify-center items-center my-2 py-5'>
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 w-[1270px] max-lg:mx-10'>
-              {facilities.map((facility) => (
-                <Card data={facility} key={facility.title} />
-              ))}
-            </div>
+          <div className="blue-side">
+            <img src="/assets/Landing.svg" className="image" width="500" height="600" alt="Landing" />
           </div>
-          <Footer />
+          <div className="white-side">
+            <h1>Welcome to <span className='pulsify'>Pulsify</span></h1>
+            <p>Where we connect you with the doctors of your choice</p>
+            <button><Link to="/signup">Sign Up</Link></button>
+          </div>
         </>
       )}
     </div>
   );
 }
 
-export default Homepage;
+export default LandingPage;

@@ -16,13 +16,6 @@ const Navbar = () => {
           <li className='hover:text-blue-500'>
             <Link to={`/contact`}>Contact</Link>
           </li>
-          <p>
-              <Link to="/signup" className='hover:text-blue-500'>Signup/</Link>
-              <Link to="/login" className='hover:text-blue-500' >Login</Link>
-            </p>
-          {/* <li className='hover:text-blue-500'>
-             <Link to={`/signup`}>Signup/</Link><Link to={`/login`}>Login</Link>
-          </li> */}
           <li>
           <div className='flex flex-1 gap-2 items-center cursor-pointer'>
 
