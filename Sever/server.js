@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const pg = require('pg');
 const hospital = require('./hospitals1.json');
+const diseases = require('./New_dataset.json');
 const bodyParser = require('body-parser');
 const path = require('path'); 
 const bcrypt = require("bcrypt");
@@ -32,6 +33,15 @@ app.use((req, res, next) => {
     next();
   });
 
+
+  app.use(session({
+    secret: 'your_secret_key', // Replace with your own secret key
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false } // Set to true if using HTTPS
+}));
+
+app.use(flash());
   
 app.post('/login', async (req, res) => {
     const { email , password } = req.body;
@@ -52,9 +62,10 @@ app.post('/login', async (req, res) => {
             console.log("Password Match:", match);
 
             if (match) {
+                req.session.user = user;
                 res.status(200).json({ message: 'Login successful' });
-                // res.redirect('/'); // Assuming you have a dashboard route after login
             } else {
+                req.flash('error', 'Incorrect password');
                 res.status(400).send("Incorrect password");
                 console.log("Incorrect password");
             }
@@ -68,19 +79,11 @@ app.post('/login', async (req, res) => {
 app.post('/signup', async (req, res) => {
     const firstname = req.body.firstname;
     const lastname = req.body.lastname;
-    const number = req.body.Number;
-    const age = req.body.age;
     const email = req.body.email;
+    const number = req.body.Number;
     const dob = req.body.dob;
     const bloodgrp = req.body.bloodGroup;
-    const address = req.body.Address;
     const password = req.body.password;
-    const cpassword = req.body.cpassword;
-  
-    console.log(number);
-    if (password !== cpassword) {
-        return res.status(400).send("Passwords do not match");
-    }
 
     try {
         const checkResult = await db.query("SELECT * FROM pbldb WHERE email = $1", [email]);
@@ -90,9 +93,10 @@ app.post('/signup', async (req, res) => {
             console.log("User with this email already exists");
         } else {
             const hash = await bcrypt.hash(password, saltRounds);
-            await db.query("INSERT INTO pbldb(firstname, lastname, number, age, email, dob, bg, address, password, cpassword) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)", [firstname, lastname, number, age, email, dob, bloodgrp, address, hash, hash]);
-            console.log("User registered successfully");
-            res.status(200).send("Signup successful");
+            const user = await db.query("INSERT INTO pbldb(firstname, lastname, email, number, dob, bg, password) VALUES ($1, $2, $3, $4, $5, $6, $7)", [firstname, lastname, email, number, dob, bloodgrp,  hash]);
+            req.session.user = user; // Log the user in by saving user information in session
+            console.log("Session ID after signup:", req.sessionID); // Log the session ID
+            res.status(200).json({ message: 'Signup successful' });
             // res.redirect('/');
         }
     } catch (err) {
@@ -123,10 +127,9 @@ app.get('/hospitals', async(req, res) => {
 
 
 app.post('/diseases', (req, res) => {
-    const ans1 = req.body.selectedSymptoms;
-    const ans2 = req.body.manualSymptoms;
-    console.log(ans1);
-    console.log(ans2);
+    const ans = req.body.selectedSymptoms;
+    
+    
     
     
     res.status(200).send('Data received successfully.');
@@ -140,10 +143,10 @@ app.listen(3001, () => {
 
 // app.post('/hospitalinsert', (req, res) => {
 //     try {
-//         for (let i = 0; i < hospital.length; i++) {
-//             const { NAME, ADDRESS, CITY, STATE, ZIP, TELEPHONE, TYPE, STATUS, LATITUDE, LONGITUDE } = hospital[i];
-//             db.query('INSERT INTO hospitals (NAME, ADDRESS, CITY, STATE, ZIP, TELEPHONE, TYPE, STATUS, LATITUDE, LONGITUDE) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)', 
-//                 [NAME, ADDRESS, CITY, STATE, ZIP, TELEPHONE, TYPE, STATUS, LATITUDE, LONGITUDE],
+//         for (let i = 0; i < diseases.length; i++) {
+//             const { Disease, Fever, Cough , Fatigue ,breath, Age , Gender , BP , Choles, outcome } = diseases[i];
+//             db.query('INSERT INTO diseases (disease, fever, cough , fatigue , breath, age , gender , bp , choles, outcome) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)', 
+//                 [Disease, Fever, Cough , Fatigue ,breath, Age , Gender , BP , Choles, outcome],
 //                 (error, results) => {
 //                     if (error) {
 //                         console.error("Error inserting hospital:", error);

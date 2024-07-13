@@ -7,6 +7,7 @@ const LoginPage = () => {
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
    const [loading, setLoading] = useState(true);
+   const [seterrors, handleseterrors] = useState('');
    const navigate = useNavigate();
 
    const handleEmailChange = (e) => {
@@ -27,7 +28,7 @@ const LoginPage = () => {
          console.log(response.data); 
          navigate('/homepage'); // Redirect to the homepage on successful login
        } catch (error) {
-         console.error('Error sending data to backend:', error);
+          handleseterrors(error.response.data);
        }
     };
 
@@ -46,7 +47,9 @@ const LoginPage = () => {
             <Loading />
          ) : (
             <>
+                 
                <div className='wrapper'>
+              
                   <form onSubmit={handleSubmit}>
                      <h1>Login</h1>
                      <div className='Input-Box'>
@@ -66,11 +69,14 @@ const LoginPage = () => {
                            onChange={handlePasswordChange} 
                            required 
                         />
+
                      </div>
+                     { <p className='error-message'>{seterrors}</p>}
                      <button type='submit' className='b1'>Login</button>
                      <div className='registration-link'>
                         <p>Don't have an account? <Link to="/signup">Signup Here</Link></p>
                      </div>
+                     
                   </form>
                </div> 
                <img src="/assets/image.svg" className="" width="500" height="600" alt="Diseases" />

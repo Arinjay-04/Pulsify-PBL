@@ -53,3 +53,26 @@
     width: 100%;
   }
   
+  .form-check-inline {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px; /* Space between each symptom group */
+  }
+  
+  .form-check-input {
+    margin-right: 5px;
+    margin-left: 10px; /* Optional: Adds some space between the radio button and the label */
+  }
+  
+  .form-check-label {
+    margin-right: 15px; /* Adds space between each radio button-label pair */
+  }
+  
+  .form-container {
+    padding: 20px;
+  }
+  
+  .disease-image {
+    margin-top: 20px;
+  }
+  

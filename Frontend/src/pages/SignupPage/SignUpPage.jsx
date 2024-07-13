@@ -4,37 +4,36 @@ import "react-datepicker/dist/react-datepicker.css";
 import { Link, useNavigate } from 'react-router-dom';
 import './signUpForm.css';
 import axios from 'axios';
-import { z } from "zod";
+import { string, z } from "zod";
 import Loading from '../Loading/Loading';
+
 
 const SignupForm = () => {
   const [showModal, setShowModal] = useState(false);
   const [firstname, setFName] = useState('');
   const [lastname, setLName] = useState('');
-  const [Number, setNumber] = useState('');
-  const [age, setAge] = useState('');
   const [email, setemail] = useState('');
+  const [Number, setNumber] = useState('');
   const [dob, setdob] = useState(new Date());
   const [bloodGroup, setBloodGroup] = useState('');
-  const [Address, setAddress] = useState('');
-  const [Code, setCode] = useState('');
   const [password, setpassword] = useState('');
-  const [cpassword, setCpassword] = useState('');
   const [errors, setErrors] = useState({});
   const [messageColor, setMessageColor] = useState('');
   const [messageText, setMessageText] = useState('');
   const [numberhandle, setnumberhandler] = useState(true);
+  const [emailhandler, setemailhandler] = useState('');
   const [loading, setLoading] = useState(true); // Loading state
+ 
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Simulate a loading delay (for demonstration purposes)
+    
     const timeout = setTimeout(() => {
-      setLoading(false); // Set loading to false after timeout
-    }, 1000); // Adjust the timeout duration as needed
+      setLoading(false); 
+    }, 1000); 
 
-    return () => clearTimeout(timeout); // Cleanup timeout on component unmount
+    return () => clearTimeout(timeout);
   }, []);
 
   const handleFirstNameChange = (e) => {
@@ -55,42 +54,28 @@ const SignupForm = () => {
     setNumber(num);
   }
 
-  const handleAge = (e) => {
-    setAge(e.target.value);
-  }
 
   const handleEmailChange = (e) => {
     setemail(e.target.value);
   }
 
-  const handleAddressChange = (e) => {
-    setAddress(e.target.value);
-  }
-
-  const handleCodeChange = (e) => {
-    setCode(e.target.value);
-  }
 
   const handleBloodGroupChange = (e) => {
     setBloodGroup(e.target.value);
   };
 
   const handlePasswordChange = (e) => {
-    const enteredPassword = e.target.value;
-    setpassword(enteredPassword);
-  };
-
-  const handleCPasswordChange = (e) => {
-    setCpassword(e.target.value);
-    if (e.target.value !== password) {
+    setpassword(e.target.value);
+    if (e.target.value.length < 8) {
       setShowModal(true);
     } else {
       setShowModal(false);
     }
   };
 
+  
   const validateInputs = (data) => {
-    // Assuming schema is defined correctly
+    
     try {
       schema.parse(data);
       return {}; 
@@ -112,29 +97,30 @@ const SignupForm = () => {
     const validationErrors = validateInputs({
       firstname,
       lastname,
-      Number,
-      age,
       email,
+      Number,
       dob,
       bloodGroup,
-      Address,
-      Code,
-      password,
-      cpassword,
+      password
     });
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
     }
 
+    if(!email.includes("@")){
+      setErrors({ password: "Passwords length must be atleast 8" });
+      return;
+    }
+
     if (Number.length !== 10) {
-      setMessageText("10 digit Number");
+      setMessageText("The mobile number must have atleast 10 digits");
       setnumberhandler(false);
       return;
     }
 
-    if (password !== cpassword) {
-      setErrors({ cpassword: "Passwords don't match" });
+    if(password.length  < 8){
+      setErrors({ password: "Passwords length must be atleast 8" });
       return;
     }
 
@@ -142,28 +128,26 @@ const SignupForm = () => {
       const response = await axios.post('http://localhost:3001/signup', {
         firstname,
         lastname,
-        Number,
-        age,
         email,
+        Number,
         dob,
         bloodGroup,
-        Address,
-        Code,
-        password,
-        cpassword,
+        password
       });
-      if (response.status === 200) { // Assuming 200 means successful signup
-        navigate('/homepage'); // Redirect to home page
+      if (response.status === 200) { 
+        navigate('/homepage'); 
+      }else{
+        console.log("Error:", response.data);
       }
     } catch (error) {
-      console.error('Error sending data to backend:', error);
+      setemailhandler(error.response.data);
     }
   };
 
   return (
     <div className="signup">
       {loading ? (
-        <Loading /> // Display Loading component while loading
+        <Loading /> 
       ) : (
         <>
           <div className='wrapper'>
@@ -189,6 +173,11 @@ const SignupForm = () => {
               </div>
 
               <div className='Input-Box'>
+                <input type='email' placeholder='Email' value={email} onChange={handleEmailChange} required />
+              </div>
+              { <p className='error-message'>{emailhandler}</p>}
+
+              <div className='Input-Box'>
                 <div className='input-wrapper'>
                   <input
                     type='tel'
@@ -199,21 +188,9 @@ const SignupForm = () => {
                   />
                   {!numberhandle && <p className='error-message'>{messageText}</p>}
                 </div>
-
-                <div>
-                  <input
-                    type='number'
-                    placeholder='Age'
-                    value={age}
-                    onChange={handleAge}
-                    required
-                  />
-                </div>
               </div>
 
-              <div className='Input-Box'>
-                <input type='email' placeholder='Email' value={email} onChange={handleEmailChange} required />
-              </div>
+              
 
               <div className='Input-Box'>
                 <DatePicker
@@ -240,10 +217,6 @@ const SignupForm = () => {
                   <option value="O-">O-</option>
                 </select>
               </div>
-
-              <div className='Input-Box'>
-                <input type='text' placeholder='Residents Address' value={Address} onChange={handleAddressChange} required />
-              </div>
               <div className='Input-Box'>
                 <input
                   type='password'
@@ -251,18 +224,13 @@ const SignupForm = () => {
                   value={password}
                   onChange={handlePasswordChange}
                   required
-                />
-                <input
-                  type='password'
-                  placeholder='Confirm Password'
-                  value={cpassword}
-                  onChange={handleCPasswordChange}
-                  required
-                />
+                  
+                /> 
               </div>
+              {showModal && <p style={{ color: "red" }}>Passwords Length must be atleast 10 character</p>}
+             
 
-              {showModal && <p style={{ color: "red" }}>Passwords didn't match</p>}
-
+              
               <button type='submit' className='b1'>Signup</button>
 
               <div className='registration-link'>
