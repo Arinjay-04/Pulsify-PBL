@@ -71,61 +71,37 @@ const Diseases = () => {
           <div className="select-symptoms">
             <div className="form-check">
               <div className="form-check-inline">
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  name="fever"
-                  onChange={handleCheckboxChange}
-                />
                 <p>Fever</p>
-                <input className="form-check-input" type="radio" name="fever" value="yes" onChange={handleRadioChange} />
+                <input className="form-check-input" type="radio" name="fever" value="Yes" onChange={handleRadioChange} />
                 <label className="form-check-label">Yes</label>
-                <input className="form-check-input" type="radio" name="fever" value="no" onChange={handleRadioChange}  />
+                <input className="form-check-input" type="radio" name="fever" value="No" onChange={handleRadioChange}  />
                 <label className="form-check-label">No</label>
               </div>
             </div>
             <div className="form-check">
               <div className="form-check-inline">
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  name="cough"
-                  onChange={handleCheckboxChange}
-                />
                 <p>Cough</p>
-                <input className="form-check-input" type="radio" name="cough" value="yes" onChange={handleRadioChange} />
+                <input className="form-check-input" type="radio" name="cough" value="Yes" onChange={handleRadioChange} />
                 <label className="form-check-label">Yes</label>
-                <input className="form-check-input" type="radio" name="cough" value="no" onChange={handleRadioChange}  />
+                <input className="form-check-input" type="radio" name="cough" value="No" onChange={handleRadioChange}  />
                 <label className="form-check-label">No</label>
               </div>
             </div>
             <div className="form-check">
               <div className="form-check-inline">
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  name="fatigue"
-                  onChange={handleCheckboxChange}
-                />
                 <p>Fatigue</p>
-                <input className="form-check-input" type="radio" name="fatigue" value="yes" onChange={handleRadioChange} />
+                <input className="form-check-input" type="radio" name="fatigue" value="Yes" onChange={handleRadioChange} />
                 <label className="form-check-label">Yes</label>
-                <input className="form-check-input" type="radio" name="fatigue" value="no" onChange={handleRadioChange}  />
+                <input className="form-check-input" type="radio" name="fatigue" value="No" onChange={handleRadioChange}  />
                 <label className="form-check-label">No</label>
               </div>
             </div>
             <div className="form-check">
               <div className="form-check-inline">
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  name="breathingIssue"
-                  onChange={handleCheckboxChange}
-                />
                 <p>Breathing Issue</p>
-                <input className="form-check-input" type="radio" name="breathing" value="yes" onChange={handleRadioChange} />
+                <input className="form-check-input" type="radio" name="breathing" value="Yes" onChange={handleRadioChange} />
                 <label className="form-check-label">Yes</label>
-                <input className="form-check-input" type="radio" name="breathing" value="no" onChange={handleRadioChange}  />
+                <input className="form-check-input" type="radio" name="breathing" value="No" onChange={handleRadioChange}  />
                 <label className="form-check-label">No</label>
               </div>
             </div>

@@ -126,13 +126,38 @@ app.get('/hospitals', async(req, res) => {
 
 
 
-app.post('/diseases', (req, res) => {
+app.post('/diseases', async  (req, res) => {
+    try{
     const ans = req.body.selectedSymptoms;
+    const Fever = ans.fever.value;
+    const cough = ans.cough.value;
+    const fatigue = ans.fatigue.value;
+    const breath = ans.breathing.value;
+    console.log(Fever+  " " + cough);
+    const disease = await db.query(
+        'SELECT disease FROM diseases WHERE fever=$1 AND cough=$2 AND fatigue=$3 AND breath=$4', 
+        [Fever, cough, fatigue, breath]
+      );
+      
+      console.log('Query Result:', disease); // Log the entire result object
+
+      if (disease.rowCount === 0) {
+        res.status(404).send("No records found");
+        console.log("No Disease");
+        return;
+      }
+  
+       res.status(200).send(disease.rows.map(row => row.disease)); 
+       return;
+
+    }catch(error){
+        res.status(404).send("No records found");
+        console.log("Error in fetching data: ", error);
+        return;
+    }
     
     
-    
-    
-    res.status(200).send('Data received successfully.');
+
 });
 
 app.listen(3001, () => {
