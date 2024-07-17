@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './Diseases.css';
-import Loading from '../Loading/Loading'; // Import your Loading component
+import Loading from '../Loading/Loading'; 
 import { Navbar } from '../../components';
 
 const Diseases = () => {
@@ -15,16 +15,7 @@ const Diseases = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  // Handler for checkbox selection
-  const handleCheckboxChange = (event) => {
-    const { name, checked } = event.target;
-    setSelectedSymptoms((prevSymptoms) => ({
-      ...prevSymptoms,
-      [name]: { ...prevSymptoms[name], checked }
-    }));
-  };
 
-  // Handler for radio button selection
   const handleRadioChange = (event) => {
     const { name, value } = event.target;
     setSelectedSymptoms((prevSymptoms) => ({
@@ -33,13 +24,27 @@ const Diseases = () => {
     }));
   };
 
+  const HandleSelectGender = (e)=> {
+    setGender(e.target.value)
+  }
+
+  const HandleSelectAge = (e)=> {
+    setAge(e.target.value)
+  }
+
+  const HandleSelectBp = (e)=> {
+    setBloodPressure(e.target.value)
+  }
+  const HandleSelectCholes = (e)=> {
+    setCholesterol(e.target.value)
+  }
+
   // Handler for submitting the form
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:3001/diseases', {
         selectedSymptoms,
-        manualSymptoms,
         age,
         gender,
         bloodPressure,
@@ -66,60 +71,6 @@ const Diseases = () => {
       {loading ? (
         <Loading />
       ) : (
-<<<<<<< HEAD
-        <div className="form-container">
-          <h2>Enter Symptoms Manually</h2>
-          <input
-            type="text"
-            name="manualSymptoms"
-            placeholder="Enter Symptoms"
-            value={manualSymptoms}
-            onChange={(e) => setManualSymptoms(e.target.value)}
-          />
-          <hr />
-          <h2>Select Symptoms:</h2>
-          <div className="select-symptoms">
-            <div className="form-check">
-              <div className="form-check-inline">
-                <p>Fever</p>
-                <input className="form-check-input" type="radio" name="fever" value="Yes" onChange={handleRadioChange} />
-                <label className="form-check-label">Yes</label>
-                <input className="form-check-input" type="radio" name="fever" value="No" onChange={handleRadioChange}  />
-                <label className="form-check-label">No</label>
-              </div>
-            </div>
-            <div className="form-check">
-              <div className="form-check-inline">
-                <p>Cough</p>
-                <input className="form-check-input" type="radio" name="cough" value="Yes" onChange={handleRadioChange} />
-                <label className="form-check-label">Yes</label>
-                <input className="form-check-input" type="radio" name="cough" value="No" onChange={handleRadioChange}  />
-                <label className="form-check-label">No</label>
-              </div>
-            </div>
-            <div className="form-check">
-              <div className="form-check-inline">
-                <p>Fatigue</p>
-                <input className="form-check-input" type="radio" name="fatigue" value="Yes" onChange={handleRadioChange} />
-                <label className="form-check-label">Yes</label>
-                <input className="form-check-input" type="radio" name="fatigue" value="No" onChange={handleRadioChange}  />
-                <label className="form-check-label">No</label>
-              </div>
-            </div>
-            <div className="form-check">
-              <div className="form-check-inline">
-                <p>Breathing Issue</p>
-                <input className="form-check-input" type="radio" name="breathing" value="Yes" onChange={handleRadioChange} />
-                <label className="form-check-label">Yes</label>
-                <input className="form-check-input" type="radio" name="breathing" value="No" onChange={handleRadioChange}  />
-                <label className="form-check-label">No</label>
-              </div>
-            </div>
-            {/* Add more checkbox inputs as needed */}
-          </div>
-          <button onClick={handleSubmit} className="btn-submit">Submit</button>
-          <img src="/assets/diseases.svg" className="disease-image" alt="Diseases" />
-=======
         <div>
           <Navbar />
           <section className='flex justify-center items-center'>
@@ -135,62 +86,39 @@ const Diseases = () => {
                 <h2>Select Symptoms:</h2>
                 <div className="form-container">
                   <div className="select-symptoms">
-                  <div className="form-check">
-                       <div className="form-check-inline">
-                     <input  type="checkbox"
-                          className="form-check-input"
-                          name="fever"
-                          onChange={handleCheckboxChange}
-                        />
+                    <div className="form-check">
+                      <div className="form-check-inline">
                         <p>Fever</p>
-                        <input className="form-check-input" type="radio" name="fever" value="yes" onChange={handleRadioChange} />
+                        <input className="form-check-input" type="radio" name="fever" value="Yes" onChange={handleRadioChange} />
                         <label className="form-check-label">Yes</label>
-                        <input className="form-check-input" type="radio" name="fever" value="no" onChange={handleRadioChange} />
+                        <input className="form-check-input" type="radio" name="fever" value="No" onChange={handleRadioChange} />
                         <label className="form-check-label">No</label>
                       </div>
                     </div>
                     <div className="form-check">
                       <div className="form-check-inline">
-                        <input
-                          type="checkbox"
-                          className="form-check-input"
-                          name="cough"
-                          onChange={handleCheckboxChange}
-                        />
                         <p>Cough</p>
-                        <input className="form-check-input" type="radio" name="cough" value="yes" onChange={handleRadioChange} />
+                        <input className="form-check-input" type="radio" name="cough" value="Yes" onChange={handleRadioChange} />
                         <label className="form-check-label">Yes</label>
-                        <input className="form-check-input" type="radio" name="cough" value="no" onChange={handleRadioChange} />
+                        <input className="form-check-input" type="radio" name="cough" value="No" onChange={handleRadioChange} />
                         <label className="form-check-label">No</label>
                       </div>
                     </div>
                     <div className="form-check">
                       <div className="form-check-inline">
-                        <input
-                          type="checkbox"
-                          className="form-check-input"
-                          name="fatigue"
-                          onChange={handleCheckboxChange}
-                        />
                         <p>Fatigue</p>
-                        <input className="form-check-input" type="radio" name="fatigue" value="yes" onChange={handleRadioChange} />
+                        <input className="form-check-input" type="radio" name="fatigue" value="Yes" onChange={handleRadioChange} />
                         <label className="form-check-label">Yes</label>
-                        <input className="form-check-input" type="radio" name="fatigue" value="no" onChange={handleRadioChange} />
+                        <input className="form-check-input" type="radio" name="fatigue" value="No" onChange={handleRadioChange} />
                         <label className="form-check-label">No</label>
                       </div>
                     </div>
                     <div className="form-check">
                       <div className="form-check-inline">
-                        <input
-                          type="checkbox"
-                          className="form-check-input"
-                          name="breathingIssue"
-                          onChange={handleCheckboxChange}
-                        />
                         <p>Breathing Issue</p>
-                        <input className="form-check-input" type="radio" name="breathing" value="yes" onChange={handleRadioChange} />
+                        <input className="form-check-input" type="radio" name="breathing" value="Yes" onChange={handleRadioChange} />
                         <label className="form-check-label">Yes</label>
-                        <input className="form-check-input" type="radio" name="breathing" value="no" onChange={handleRadioChange} />
+                        <input className="form-check-input" type="radio" name="breathing" value="No" onChange={handleRadioChange} />
                         <label className="form-check-label">No</label>
                       </div>
                     </div>
@@ -203,60 +131,60 @@ const Diseases = () => {
                         id="age"
                         name="age"
                         value={age}
-                        onChange={(e) => setAge(e.target.value)}
+                        onChange={HandleSelectAge}
                       />
                     </div>
 
                     {/* Gender Selection */}
           
-                  <div className="form-group">
-                    <label>Gender:</label>
-                    <div className="form-check-inline">
-                      <input
-                        type="radio"
-                        name="gender"
-                        value="male"
-                        onChange={(e) => setGender(e.target.value)}
-                      />
-                      <label>Male</label>
-                      <input
-                        type="radio"
-                        name="gender"
-                        value="female"
-                        onChange={(e) => setGender(e.target.value)}
-                      />
-                      <label>Female</label>
-                    </div>
-                  </div>
-
-                    {/* BP Selection */}
                     <div className="form-group">
+                      <label>Gender:</label>
+                      <div className="form-check-inline">
+                        <input
+                          type="radio"
+                          name="gender"
+                          value="Male"
+                          onChange={HandleSelectGender}
+                        />
+                        <label>Male</label>
+                        <input
+                          type="radio"
+                          name="gender"
+                          value="Female"
+                          onChange={HandleSelectGender}
+                        />
+                        <label>Female</label>
+                      </div>
+                    </div>
+
+                     {/* Blood Pressure Selection */}
+                     <div className="form-group">
                       <label>Blood Pressure:</label>
-                      <select value={bloodPressure} onChange={(e) => setBloodPressure(e.target.value)}>
-                        <option value="low">Low</option>
-                        <option value="normal">Normal</option>
-                        <option value="high">High</option>
+                      <select value={bloodPressure} onChange={HandleSelectBp}>
+                        <option value="">Select</option>
+                        <option value="Low">Low</option>
+                        <option value="Normal">Normal</option>
+                        <option value="High">High</option>
                       </select>
                     </div>
 
                     {/* Cholesterol Selection */}
                     <div className="form-group">
                       <label>Cholesterol:</label>
-                      <select value={cholesterol} onChange={(e) => setCholesterol(e.target.value)}>
-                        <option value="low">Low</option>
-                        <option value="normal">Normal</option>
-                        <option value="high">High</option>
+                      <select value={cholesterol} onChange={HandleSelectCholes}>
+                        <option value="">Select</option>
+                        <option value="Low">Low</option>
+                        <option value="Normal">Normal</option>
+                        <option value="High">High</option>
                       </select>
                     </div>
 
                     <button onClick={handleSubmit} className="btn-submit">Submit</button>
                   </div>
-                  </div>
                 </div>
               </div>
-            
+            </div>
           </section>
->>>>>>> 33675906bdc8b0261c22b54eec8964a191d31304
         </div>
       )}
     </div>
@@ -264,4 +192,3 @@ const Diseases = () => {
 };
 
 export default Diseases;
-

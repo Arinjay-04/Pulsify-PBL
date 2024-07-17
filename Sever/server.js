@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const pg = require('pg');
-const hospital = require('./hospitals1.json');
+const hospital = require('./New_Hospitals.json');
 const diseases = require('./New_dataset.json');
 const bodyParser = require('body-parser');
 const path = require('path'); 
@@ -105,73 +105,92 @@ app.post('/signup', async (req, res) => {
     }
 });
 
-app.get('/hospitals', async(req, res) => {
-    try{
+app.get('/hospitals', async (req, res) => {
+    try {
         const { state, city } = req.query; 
-        const result = await  db.query("SELECT NAME, ADDRESS, TELEPHONE, TYPE, STATUS FROM hospitals WHERE STATE = $1 and CITY = $2",[state, city]);
+        console.log(`State: ${state}`);
+        console.log(`City: ${city}`);
+        
+        if (!state || !city) {
+            return res.status(400).json({ error: 'State and City are required' });
+        }
+
+        
+        const query = "SELECT * FROM hospitals WHERE state=$1 AND city=$2";
+        const params = [state.trim(), city.trim()];  
+
+        const result = await db.query(query, params);
+        
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({ message: 'No hospitals found' });
+        }
+
         const results = result.rows.map(hosp => ({
             name: hosp.name,
             address: hosp.address,
-            telephone: hosp.telephone,
-            type: hosp.type,
-            status: hosp.status
         }));
+
         res.json(results);
-    }catch(err){
-        console.log("error: ", err);
+    } catch (err) {
+        console.error('Error executing query:', err);
+        res.status(500).json({ error: 'Internal server error' });
     }
 });
 
-
-
-
-
-app.post('/diseases', async  (req, res) => {
-    try{
-    const ans = req.body.selectedSymptoms;
-    const Fever = ans.fever.value;
-    const cough = ans.cough.value;
-    const fatigue = ans.fatigue.value;
-    const breath = ans.breathing.value;
-    console.log(Fever+  " " + cough);
-    const disease = await db.query(
-        'SELECT disease FROM diseases WHERE fever=$1 AND cough=$2 AND fatigue=$3 AND breath=$4', 
-        [Fever, cough, fatigue, breath]
-      );
-      
-      console.log('Query Result:', disease); // Log the entire result object
-
-      if (disease.rowCount === 0) {
-        res.status(404).send("No records found");
+app.post('/diseases', async (req, res) => {
+    try {
+      const { selectedSymptoms, gender, bloodPressure, cholesterol } = req.body;
+  
+      // Extract values from selectedSymptoms
+      const fever = selectedSymptoms.fever.value;
+      const cough = selectedSymptoms.cough.value;
+      const fatigue = selectedSymptoms.fatigue.value;
+      const breath = selectedSymptoms.breathing.value;
+      console.log(fever+" "+cough)
+      console.log(bloodPressure);
+  
+      // Database query to find matching disease
+      const queryText = `
+        SELECT disease 
+        FROM diseases 
+        WHERE fever=$1 AND cough=$2 AND fatigue=$3 AND breath=$4 AND gender=$5 AND bp=$6 AND choles=$7
+      `;
+      const queryValues = [fever, cough, fatigue, breath, gender, bloodPressure, cholesterol];
+  
+      const result = await db.query(queryText, queryValues);
+  
+      console.log('Query Result:', result);
+  
+      if (result.rowCount === 0) {
+        res.status(404).json({ message: "No records found" });
         console.log("No Disease");
         return;
       }
   
-       res.status(200).send(disease.rows.map(row => row.disease)); 
-       return;
-
-    }catch(error){
-        res.status(404).send("No records found");
-        console.log("Error in fetching data: ", error);
-        return;
+      res.status(200).json(result.rows.map(row => row.disease));
+    } catch (error) {
+      res.status(500).json({ message: "Error in fetching data", error: error.message });
+      console.error("Error in fetching data:", error);
     }
-    
-    
-
-});
+  });
+  
 
 app.listen(3001, () => {
     console.log("The port is running");
 });
 
-                                             // INSERTING DATA IN DATABASE
+                                             //INSERTING DATA IN DATABASE// 
 
 // app.post('/hospitalinsert', (req, res) => {
 //     try {
-//         for (let i = 0; i < diseases.length; i++) {
-//             const { Disease, Fever, Cough , Fatigue ,breath, Age , Gender , BP , Choles, outcome } = diseases[i];
-//             db.query('INSERT INTO diseases (disease, fever, cough , fatigue , breath, age , gender , bp , choles, outcome) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)', 
-//                 [Disease, Fever, Cough , Fatigue ,breath, Age , Gender , BP , Choles, outcome],
+//         for (let i = 0; i <hospital.length ; i++) {
+//             const { Hospital, State, City, LocalAddress, Pincode  } = hospital[i];
+//             // console.log( State);
+//             // console.log(Hospital);
+                
+//             db.query('INSERT INTO hospitals ( name , state , city , address, pincode) VALUES ($1, $2, $3, $4, $5)', 
+//                 [Hospital, State, City, LocalAddress, Pincode ],
 //                 (error, results) => {
 //                     if (error) {
 //                         console.error("Error inserting hospital:", error);

@@ -24,6 +24,7 @@ const Hospital = () => {
       const response = await axios.get("http://localhost:3001/hospitals", {
         params: { state, city },
       });
+      console.log(response.data);
       setHospitals(response.data);
     } catch (error) {
       console.error('Error fetching data from backend:', error);
